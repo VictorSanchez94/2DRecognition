@@ -10,7 +10,7 @@ int main (){
 	vector<Vec4i> hierarchy;
 	RNG rng(12345);
 	double min, max;
-	img = imread("images/rectangulo2.pgm", CV_LOAD_IMAGE_GRAYSCALE);
+	img = imread("images/reco3.pgm", CV_LOAD_IMAGE_GRAYSCALE);
 	//img2 = imread("images/vagon1.pgm", CV_LOAD_IMAGE_GRAYSCALE);
 
 	//Otsu's thresholding
@@ -24,9 +24,8 @@ int main (){
 			drawContours( drawing, contours, i, color, 2, 8, hierarchy, 0, Point() );
 			for(int col=0; col<drawing.cols; col++){
 				for(int row=0; row<drawing.rows; row++){
-					if (!(pointPolygonTest(contours[i],Point(col,row),false) == -1)){
+					if (pointPolygonTest(contours[i],Point(col,row),false) == 1){
 						floodFill(drawing, Point(col,row), color, (cv::Rect*)0, cv::Scalar(), 200);
-						break;
 					}
 				}
 			}
