@@ -1,17 +1,29 @@
 #include<opencv2/opencv.hpp>
+#include"Train.h"
+
 using namespace std;
 using namespace cv;
 
-int main (){
+int main (int argc, const char* argv[]){
+	for(int i=0; i<argc;i++){
+		cout << argv[i] << endl;
+	}
+	if(strcmp(argv[1], "train") == 0){
+		cout << "IEEEEEE";
+		train("images/circulo", 5, "circulo");
+		train("images/rectangulo", 5, "rectangulo");
+		train("images/triangulo", 5, "triangulo");
+		train("images/vagon", 5, "vagon");
+	}
+}
 
-//void otsuMethod () {
-	Mat dstOtsu, drawing,/*dstOtsu2, dstAdaptive, dstAdaptive2, */img, img2;
+void otsuMethod (string path) {
+	Mat dstOtsu, drawing, img, img2;
 	vector<vector<Point> > contours;
 	vector<Vec4i> hierarchy;
 	RNG rng(12345);
 	double min, max;
-	img = imread("images/reco2.pgm", CV_LOAD_IMAGE_GRAYSCALE);
-	//img2 = imread("images/vagon1.pgm", CV_LOAD_IMAGE_GRAYSCALE);
+	img = imread("images/rueda1.pgm", CV_LOAD_IMAGE_GRAYSCALE);
 
 	//Otsu's thresholding
 	threshold( img, dstOtsu, 0, 255, THRESH_OTSU+THRESH_BINARY_INV );
@@ -33,13 +45,9 @@ int main (){
 		}
 	}
 
-	//floodFill(drawing, cv::Point(contours[0][0])+Point(10,10), 255, (cv::Rect*)0, cv::Scalar(), 200);
-
 	imshow( "Blobs", drawing );
 
-	//threshold( img2, dstOtsu2, 0, 255, THRESH_OTSU+THRESH_BINARY_INV );
-	//imshow("Otsu 2",dstOtsu2);
-
+	//Metodo adaptativo (demostrado peor para imagenes dadas en la practica)
 	/*adaptiveThreshold(img, dstAdaptive, 255, CV_ADAPTIVE_THRESH_GAUSSIAN_C, CV_THRESH_BINARY_INV, 69, 1);
 	adaptiveThreshold(img2, dstAdaptive2, 255, CV_ADAPTIVE_THRESH_GAUSSIAN_C, CV_THRESH_BINARY_INV, 69, 1);
 	imshow("Adaptive",dstAdaptive);
