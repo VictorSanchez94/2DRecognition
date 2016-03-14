@@ -93,6 +93,4 @@ void train(string path, int numObjects, string objectType, char* mode) {
 		fs << varianza.str() << muVariances;
 		fs.release();
 	}
-
-
 }

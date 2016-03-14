@@ -4,6 +4,7 @@
 using namespace std;
 using namespace cv;
 
+
 void otsuMethod (string path) {
 	Mat dstOtsu, drawing, img, img2;
 	vector<vector<Point> > contours;
@@ -97,5 +98,4 @@ int main (int argc, const char* argv[]){
 	}else if(strcmp(argv[1], "recognition") == 0){
 		otsuMethod(argv[2]);
 	}
-
 }
